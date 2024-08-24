@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("styles/terms.css");
+
+:root {
+  --primary: #ff7c2a;
+  --secondary: "#0DB7BF";
+}
+
+/* disable number input arrows */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+[data-theme="dark"] .gradient-primary {
+  background: linear-gradient(
+    97.5deg,
+    rgba(255, 124, 42, 0.2) 2.43%,
+    rgba(153, 74, 25, 0.2) 97.63%
+  );
+}
+
+[data-theme="light"] .gradient-primary {
+  background: linear-gradient(98.35deg, #fff3ea 2.4%, #fff6ef 117.66%);
+}
+
+.shadow-primary {
+  box-shadow: 1px 2px 20px 0px rgba(255, 124, 42, 0.3);
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+  width: 0 !important;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.fp-selected {
+  border: 1px solid var(--primary) !important;
+  filter: brightness(0.98);
+}
+
+.no-focus {
+  outline: none !important;
+}
+
+/* tabs selection */
+.tab.tab-active:not(.tab-disabled):not([disabled]),
+.tab:is(input:checked) {
+  border-color: #ff7c2a;
+}
+
+.divider:after,
+.divider:before {
+  height: 1px !important;
+  width: 1px !important;
+}
+
+[data-theme="dark"] .main-app-mainnet {
+  background: rgb(43, 43, 43) url("./assets/bg-pattern.svg") left top/auto
+    repeat;
+}
+
+[data-theme="light"] .main-app-mainnet {
+  background: rgb(236, 236, 236) url("./assets/bg-pattern.svg") left top/auto
+    repeat;
+}
+
+[data-theme="dark"] .main-app-testnet {
+  background: rgb(43, 43, 43) url("./assets/testnet-bg-pattern.svg") left
+    top/auto repeat;
+}
+
+[data-theme="light"] .main-app-testnet {
+  background: rgb(236, 236, 236) url("./assets/testnet-bg-pattern.svg") left
+    top/auto repeat;
+}
+
+[data-theme="dark"] .react-responsive-modal-modal {
+  background-color: #1e1e1e;
+  color: #fff;
+}
+
+[data-theme="light"] .react-responsive-modal-modal {
+  background-color: #fff;
+  color: #000;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
