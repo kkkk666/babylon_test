@@ -6,7 +6,6 @@
 
 <script>
 import {ref, computed, provide, defineComponent} from 'vue';
-import {ErrorType} from '@/types/errors';
 
 export default defineComponent({
   name: 'ErrorProvider',

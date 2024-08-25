@@ -1,8 +1,13 @@
 <template>
-  <div class="card flex flex-col gap-2 bg-base-300 p-4 shadow-sm lg:flex-1">
+  <div class="card flex flex-col gap-2 bg-base-300 p-4 shadow-sm lg:flex-1 staking-container">
     <h3 class="card-title">Staking</h3>
-    <div v-if="!isWalletConnected">
-      <WalletNotConnected @connect="onConnect"/>
+    <div v-if="!isWalletConnected" class="flex flex-row">
+      <div class="flex flex-1 flex-col gap-4 lg:basis-3/5 xl:basis-2/3">
+        <FinalityProviders :data="finalityProviders"></FinalityProviders>
+      </div>
+      <div class="flex flex-1 flex-col gap-4 lg:basis-2/5 xl:basis-1/3">
+        <WalletNotConnected/>
+      </div>
     </div>
     <div v-else-if="isLoading">
       <LoadingView/>
@@ -58,46 +63,42 @@
           :mempoolFeeRates="mempoolFeeRates"
           :stakingFeeSat="stakingFeeSat"
           :selectedFeeRate="selectedFeeRate"
-          @selectedFeeRateChange="setSelectedFeeRate"
           :reset="resetFormInputs"
         />
         <p v-if="overflow.approchingCapRange" class="text-center text-sm text-error">
           {{ overflow.isHeightCap ? 'Staking window is closing. Your stake may overflow!' : 'Staking cap is filling up. Your stake may overflow!' }}
         </p>
-        <span class="cursor-pointer text-xs" :data-tooltip-content="signNotReadyReason">
+        <span class="cursor-pointer text-xs">
         <button
           class="btn-primary btn mt-2 w-full"
-          :disabled="!previewReady"
-          @click="setPreviewModalOpen(true)"
         >
         Preview
       </button>
     </span>
-        <PreviewModal
-          v-if="previewReady"
-          :open="previewModalOpen"
-          @close="handlePreviewModalClose"
-          @sign="handleSign"
-          :finalityProvider="finalityProvider?.description.moniker"
-          :stakingAmountSat="stakingAmountSat"
-          :stakingTimeBlocks="stakingTimeBlocksWithFixed"
-          :stakingFeeSat="stakingFeeSat"
-          :confirmationDepth="stakingParams.confirmationDepth"
-          :feeRate="feeRate"
-          :unbondingTimeBlocks="stakingParams.unbondingTime"
-        />
+        <!--        <PreviewModal-->
+        <!--          v-if="previewReady"-->
+        <!--          :open="previewModalOpen"-->
+        <!--          @close="handlePreviewModalClose"-->
+        <!--          @sign="handleSign"-->
+        <!--          :finalityProvider="finalityProvider?.description.moniker"-->
+        <!--          :stakingAmountSat="stakingAmountSat"-->
+        <!--          :stakingTimeBlocks="stakingTimeBlocksWithFixed"-->
+        <!--          :stakingFeeSat="stakingFeeSat"-->
+        <!--          :confirmationDepth="stakingParams.confirmationDepth"-->
+        <!--          :feeRate="feeRate"-->
+        <!--          :unbondingTimeBlocks="stakingParams.unbondingTime"-->
+        <!--        />-->
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import {ref, computed, onMounted} from 'vue';
-import {Transaction, networks} from 'bitcoinjs-lib';
+import {ref, computed} from 'vue';
+import FinalityProviders from "@/components/FinalityProviders/FinalityProviders";
 import WalletNotConnected from './Form/States/WalletNotConnected.vue';
-import LoadingView from '@/components/Loading/Loading.vue';
+import LoadingView from '@/components/Loading/LoadingView.vue';
 import Message from './Form/States/Message.vue';
-import PreviewModal from '../Modals/PreviewModal.vue';
 import StakingAmount from './Form/StakingAmount.vue';
 import StakingFee from './Form/StakingFee.vue';
 import StakingTime from './Form/StakingTime.vue';
@@ -106,14 +107,15 @@ import stakingNotStarted from './Form/States/staking-not-started.svg';
 import stakingUpgrading from './Form/States/staking-upgrading.svg';
 
 export default {
+  name: 'AppStaking',
   components: {
     WalletNotConnected,
     LoadingView,
     Message,
-    PreviewModal,
     StakingAmount,
     StakingFee,
     StakingTime,
+    FinalityProviders
   },
   props: {
     btcHeight: Number,
@@ -142,6 +144,10 @@ export default {
     const feedbackModal = ref({ type: null, isOpen: false });
     const successFeedbackModalOpened = ref(false);
     const cancelFeedbackModalOpened = ref(false);
+    const mempoolFeeRates = ref(0);
+    const signReady = ref(false);
+    const stakingFeeSat = ref(0);
+    const stakingTimeBlocksWithFixed = ref(0);
     const paramWithCtx = ref();
     const overflow = ref({
       isHeightCap: false,
@@ -155,7 +161,7 @@ export default {
     const isBlockHeightUnderActivation = computed(() => {
       return !stakingParams.value || (props.btcHeight && firstActivationHeight.value && props.btcHeight + 1 < firstActivationHeight.value);
     });
-    const feeRate = computed(() => selectedFeeRate.value || defaultFeeRate);
+    const feeRate = computed(() => selectedFeeRate.value || '0');
 
     const handleStakingAmountSatChange = (inputAmountSat) => {
       stakingAmountSat.value = inputAmountSat;
@@ -201,7 +207,22 @@ export default {
       stakingCapReached,
       stakingNotStarted,
       stakingUpgrading,
+      mempoolFeeRates,
+      signReady,
+      stakingFeeSat,
+      stakingTimeBlocksWithFixed,
     };
   },
 };
 </script>
+<style lang="css" scoped>
+.staking-container {
+  background: #ffffff;
+}
+
+.card {
+  position: relative;
+  border-radius: var(--rounded-box, 1rem);
+  background-color: rgb(255, 255, 255);
+}
+</style>

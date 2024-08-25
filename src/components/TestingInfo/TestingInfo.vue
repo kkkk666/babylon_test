@@ -2,7 +2,6 @@
   <div v-if="shouldDisplayTestingMsg()" class="flex w-full justify-center">
     <div class="card flex w-full flex-col items-center gap-1 bg-base-200 p-3 text-sm lg:w-auto lg:flex-row lg:text-xs">
       <div class="flex items-center gap-1 lg:gap-2">
-        <RiErrorWarningLine :size="20" />
         <p class="whitespace-nowrap text-center">
           <strong>This is a testing Dapp.</strong>
         </p>
@@ -17,15 +16,12 @@
 </template>
 
 <script>
-  import RiErrorWarningLine from "vue-icons/ri/RiErrorWarningLine.vue";
-  import { shouldDisplayTestingMsg } from "@/config";
+import {shouldDisplayTestingMsg} from "@/config";
 
-  export default {
-  components: {
-  RiErrorWarningLine,
-},
+export default {
+  components: {},
   methods: {
-  shouldDisplayTestingMsg,
-},
+    shouldDisplayTestingMsg,
+  },
 };
 </script>

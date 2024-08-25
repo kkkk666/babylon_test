@@ -8,7 +8,7 @@ export default new Router({
     {
       path: '/',
       name: 'Providers',
-      component: () => import(/* webpackChunkName:"alter" */ "@/Providers.vue"),
+      component: () => import(/* webpackChunkName:"alter" */ "@/components/AppProviders/AppProviders.vue"),
     }
   ]
 })

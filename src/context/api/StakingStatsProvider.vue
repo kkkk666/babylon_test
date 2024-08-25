@@ -5,9 +5,9 @@
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex';
-import {getStats} from '@/api/getStats.ts';
-import {ErrorState} from '@/types/errors.ts';
+import {mapActions} from 'vuex';
+import {getStats} from '@/api/getStats';
+import {ErrorState} from '@/types/errors';
 
 export default {
   name: 'StakingStatsProvider',

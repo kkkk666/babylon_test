@@ -5,7 +5,7 @@ import {
   withdrawTimelockUnbondedTransaction,
 } from "btc-staking-ts";
 
-import { getGlobalParams } from "@/api/getGlobalParams.ts";
+import { getGlobalParams } from "@/api/getGlobalParams";
 import { SignPsbtTransaction } from "@/common/utils/psbt";
 import { Delegation as DelegationInterface } from "@/types/delegations";
 import { apiDataToStakingScripts } from "@/utils/apiDataToStakingScripts";

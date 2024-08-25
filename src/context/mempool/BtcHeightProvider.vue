@@ -6,21 +6,18 @@
 
 <script>
 import {ref, provide, defineComponent, onMounted} from 'vue';
-import {getTipHeight} from '@/utils/mempool_api.ts';
+import {getTipHeight} from '@/utils/mempool_api';
 
 export default defineComponent({
   name: 'BtcHeightProvider',
   setup() {
     const btcHeight = ref(undefined);
-
-    // const { data } = useQuery({
-    //   queryKey: ['BTC_HEIGHT_MEMPOOL_API'],
-    //   queryFn: async () => getTipHeight(),
-    //   refetchInterval: 60000, // 1 minute
-    // });
+    getTipHeight().then().then((height) => {
+      btcHeight.value = height;
+    });
 
     onMounted(() => {
-      btcHeight.value = data.value;
+      // btcHeight.value = data.value;
     });
 
     provide('btcHeight', btcHeight);

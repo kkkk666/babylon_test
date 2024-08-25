@@ -56,9 +56,7 @@
 
 <script>
 import {getNetworkConfig} from "@/config/network.config";
-import {satoshiToBtc} from "@/utils/btcConversions";
-import {getFeeRateFromMempool} from "@/utils/getFeeRateFromMempool";
-import LoadingSmall from "../../Loading/Loading.vue";
+import LoadingSmall from "../../Loading/LoadingView.vue";
 
 export default {
   props: {
@@ -104,7 +102,6 @@ export default {
         this.onSelectedFeeRateChange(value);
       }
     },
-    ...getFeeRateFromMempool(this.mempoolFeeRates)
   },
   watch: {
     reset() {

@@ -1,9 +1,9 @@
 import { Transaction, networks } from "bitcoinjs-lib";
 import { unbondingTransaction } from "btc-staking-ts";
 
-import { getGlobalParams } from "@/api/getGlobalParams.ts";
-import { getUnbondingEligibility } from "@/api/getUnbondingEligibility.ts";
-import { postUnbonding } from "@/api/postUnbonding.ts";
+import { getGlobalParams } from "@/api/getGlobalParams";
+import { getUnbondingEligibility } from "@/api/getUnbondingEligibility";
+import { postUnbonding } from "@/api/postUnbonding";
 import { SignPsbtTransaction } from "@/common/utils/psbt";
 import { Delegation as DelegationInterface } from "@/types/delegations";
 import { apiDataToStakingScripts } from "@/utils/apiDataToStakingScripts";

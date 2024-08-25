@@ -1,4 +1,4 @@
-import { postVerifyUtxoOrdinals, UtxoInfo } from "@/api/postFilterOrdinals.ts";
+import { postVerifyUtxoOrdinals, UtxoInfo } from "@/api/postFilterOrdinals";
 
 import { Inscription, UTXO } from "../wallet/wallet_provider";
 
