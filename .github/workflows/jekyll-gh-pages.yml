@@ -35,9 +35,10 @@ jobs:
 
       # 上传构建文件为 artifact
       - name: Upload artifact for deployment
-        uses: actions/upload-pages-artifact@v2.0.0
+        uses: actions/artifact@v4
         with:
-          path: ./dist # 确保此路径为构建输出目录
+          path: ./dist
+          name: github-pages
 
   deploy:
     needs: build
