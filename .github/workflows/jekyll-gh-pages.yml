@@ -35,7 +35,7 @@ jobs:
 
       # 上传构建文件为 artifact
       - name: Upload artifact for deployment
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v2.0.0
         with:
           path: ./dist # 确保此路径为构建输出目录
 
@@ -50,6 +50,7 @@ jobs:
     steps:
       # 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v4.0.0
         with:
           token: ${{ secrets.TEST_GITHUB_TOKEN }}
+          artifact: github-pages
