@@ -9,32 +9,38 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # 检出代码
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js 14.15
+      # 设置 Node.js 环境
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '14.15'
 
+      # 安装依赖
       - name: Install dependencies
         run: npm install
 
-      - name: Build
+      # 构建项目
+      - name: Build project
         run: npm run build
 
+      # 调试构建输出
       - name: Debug build output
         run: |
           echo "Listing files in ./dist:"
           ls -R ./dist
 
+      # 上传构建文件为 artifact
       - name: Upload artifact for deployment
         uses: actions/upload-pages-artifact@v2
         with:
-          path: ./dist
+          path: ./dist # 确保此路径为构建输出目录
 
   deploy:
-    needs: build # 确保 build 作业完成后再运行 deploy
+    needs: build
     runs-on: ubuntu-latest
 
     permissions:
@@ -46,4 +52,4 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
         with:
-          github_token: ${{ secrets.TEST_GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
