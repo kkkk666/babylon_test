@@ -23,6 +23,11 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Debug build output
+        run: |
+          echo "Listing files in ./dist:"
+          ls -R ./dist
+
       - name: Upload artifact for deployment
         uses: actions/upload-pages-artifact@v2
         with:
