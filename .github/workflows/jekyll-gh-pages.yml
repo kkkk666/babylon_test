@@ -56,7 +56,7 @@ jobs:
           ls -R $GITHUB_WORKSPACE
 
       - name: Check if GITHUB_TOKEN is valid
-        run: echo ${{ secrets.GITHUB_TOKEN }} | base64
+        run: echo ${{ secrets.TEST_GITHUB_TOKEN }} | base64
 
       # 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
