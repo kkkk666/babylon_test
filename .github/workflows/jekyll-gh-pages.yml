@@ -35,7 +35,7 @@ jobs:
 
       # 上传构建文件为 artifact
       - name: Upload artifact for deployment
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           path: ./dist
           name: github-pages
@@ -49,9 +49,15 @@ jobs:
       id-token: write
 
     steps:
+      # 调试：列出 workspace 中的文件
+      - name: Debug - List uploaded artifacts
+        run: |
+          echo "Listing uploaded artifact files:"
+          ls -R $GITHUB_WORKSPACE
+
       # 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4.0.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifact_name: github-pages
+          artifact_name: github-pages  # 使用相同的 artifact 名称
