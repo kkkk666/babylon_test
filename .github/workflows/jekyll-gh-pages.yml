@@ -38,7 +38,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           path: ./dist
-          name: github-pages
+          name: babylon_test
 
   deploy:
     needs: build
@@ -53,18 +53,18 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: github-pages
-          path: ./github-pages
+          name: babylon_test
+          path: ./babylon_test
 
       # 调试：列出下载后的文件
       - name: Debug - List downloaded files
         run: |
           echo "Listing downloaded artifact files:"
-          ls -R ./github-pages
+          ls -R ./babylon_test
 
       # 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.TEST_GITHUB_TOKEN }}
-          publish_dir: ./github-pages/dist
+          publish_dir: ./babylon_test/dist
