@@ -56,10 +56,16 @@ jobs:
           name: babylon_test
           path: ./babylon_test
 
-      # 调试：列出下载后的文件
+      # 解压 artifact
+      - name: Extract artifact
+        run: |
+          echo "Extracting artifact..."
+          unzip ./babylon_test/github-pages.zip -d ./babylon_test/
+
+      # 调试：列出下载并解压后的文件
       - name: Debug - List downloaded files
         run: |
-          echo "Listing downloaded artifact files:"
+          echo "Listing extracted files:"
           ls -R ./babylon_test
 
       # 部署到 GitHub Pages
@@ -67,4 +73,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.TEST_GITHUB_TOKEN }}
-          publish_dir: ./babylon_test
+          publish_dir: ./babylon_test/dist
