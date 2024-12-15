@@ -60,7 +60,7 @@ jobs:
       - name: Extract artifact
         run: |
           echo "Extracting artifact..."
-          unzip ./babylon_test/github-pages.zip -d ./babylon_test/
+          unzip ./babylon_test/babylon_test.zip -d ./babylon_test/
 
       # 调试：列出下载并解压后的文件
       - name: Debug - List downloaded files
