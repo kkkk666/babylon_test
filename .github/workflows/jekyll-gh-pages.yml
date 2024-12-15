@@ -54,6 +54,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: github-pages
+          path: ./github-pages
 
       # 调试：列出下载后的文件
       - name: Debug - List downloaded files
