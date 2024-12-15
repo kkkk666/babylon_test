@@ -67,4 +67,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.TEST_GITHUB_TOKEN }}
-          publish_dir: ./babylon_test/dist
+          publish_dir: ./babylon_test
