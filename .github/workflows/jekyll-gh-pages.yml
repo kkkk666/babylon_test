@@ -49,6 +49,11 @@ jobs:
       id-token: write
 
     steps:
+      - name: Debug - Check dist directory before upload
+        run: |
+          echo "Listing files in ./dist before upload:"
+          ls -R ./dist
+
       # 下载上传的 artifact
       - name: Download artifact
         uses: actions/download-artifact@v3
@@ -66,4 +71,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.TEST_GITHUB_TOKEN }}
-          publish_dir: ./github-pages/dist  # 这个目录需要指向下载后的 dist
+          publish_dir: ./github-pages/dist
