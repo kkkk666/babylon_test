@@ -1,6 +1,6 @@
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
-  publicPath: 'kkkk666.github.io',
+  publicPath: '/babylon_test/',
   transpileDependencies: true,
   chainWebpack: config => {
     config.module
