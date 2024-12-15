@@ -49,24 +49,9 @@ jobs:
       id-token: write
 
     steps:
-      # 下载 artifact
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: babylon_test
-          path: ./babylon_test
-
-      # 解压 artifact
-      - name: Extract artifact
-        run: |
-          echo "Extracting artifact..."
-          unzip ./babylon_test/babylon_test.zip -d ./babylon_test/
-
-      # 调试：列出下载并解压后的文件
-      - name: Debug - List downloaded files
-        run: |
-          echo "Listing extracted files:"
-          ls -R ./babylon_test
+      - uses: actions/download-artifact@v4
+      - name: Display structure of downloaded files
+        run: ls -R
 
       # 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
