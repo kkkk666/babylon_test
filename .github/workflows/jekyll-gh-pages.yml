@@ -32,6 +32,8 @@ jobs:
         run: |
           echo "Listing files in ./dist:"
           ls -R ./dist
+      - name: Find and remove symlinks
+        run: find ./dist -type l -exec rm -f {} \;
 
       # 上传构建文件为 artifact
       - name: Upload artifact for deployment
@@ -58,18 +60,10 @@ jobs:
       - name: Check if GITHUB_TOKEN is valid
         run: echo ${{ secrets.TEST_GITHUB_TOKEN }} | base64
 
-      - name: find dist
-        run: find ./dist -type l
-
-      - name: remove symlink
-        run: rm -f ./dist/path/to/symlink
-
-      - name: check dist
-        run: du -sh ./dist
 
       # 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4.0.0
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          token: ${{ secrets.TEST_GITHUB_TOKEN }}
-          artifact_name: github-pages  # 使用相同的 artifact 名称
+          github_token: ${{ secrets.TEST_GITHUB_TOKEN }}
+          publish_dir: ./dist
