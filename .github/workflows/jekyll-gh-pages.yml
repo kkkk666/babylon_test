@@ -49,9 +49,9 @@ jobs:
       id-token: write
 
     steps:
-      # 下载上传的 artifact
+      # 下载上传的 artifact（使用 actions/download-artifact@v3）
       - name: Download artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: github-pages
 
