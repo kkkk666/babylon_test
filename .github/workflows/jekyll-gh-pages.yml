@@ -58,6 +58,15 @@ jobs:
       - name: Check if GITHUB_TOKEN is valid
         run: echo ${{ secrets.TEST_GITHUB_TOKEN }} | base64
 
+      - name: find dist
+        run: find ./dist -type l
+
+      - name: remove symlink
+        run: rm -f ./dist/path/to/symlink
+
+      - name: check dist
+        run: du -sh ./dist
+
       # 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4.0.0
