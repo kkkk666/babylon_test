@@ -49,16 +49,12 @@ jobs:
       id-token: write
 
     steps:
-      - name: Debug - Check dist directory before upload
-        run: |
-          echo "Listing files in ./dist before upload:"
-          ls -R ./dist
-
-      # 下载上传的 artifact
+      # 下载 artifact
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
           name: github-pages
+          path: ./github-pages
 
       # 调试：列出下载后的文件
       - name: Debug - List downloaded files
