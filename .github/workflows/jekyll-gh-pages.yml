@@ -32,8 +32,6 @@ jobs:
         run: |
           echo "Listing files in ./dist:"
           ls -R ./dist
-      - name: Find and remove symlinks
-        run: find ./dist -type l -exec rm -f {} \;
 
       # 上传构建文件为 artifact
       - name: Upload artifact for deployment
@@ -51,19 +49,21 @@ jobs:
       id-token: write
 
     steps:
-      # 调试：列出 workspace 中的文件
-      - name: Debug - List uploaded artifacts
+      # 下载上传的 artifact
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: github-pages
+
+      # 调试：列出下载后的文件
+      - name: Debug - List downloaded files
         run: |
-          echo "Listing uploaded artifact files:"
-          ls -R $GITHUB_WORKSPACE
-
-      - name: Check if GITHUB_TOKEN is valid
-        run: echo ${{ secrets.TEST_GITHUB_TOKEN }} | base64
-
+          echo "Listing downloaded artifact files:"
+          ls -R ./github-pages
 
       # 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.TEST_GITHUB_TOKEN }}
-          publish_dir: ./dist
+          publish_dir: ./github-pages/dist  # 这个目录需要指向下载后的 dist
