@@ -49,7 +49,7 @@ jobs:
       id-token: write
 
     steps:
-      # 下载上传的 artifact（使用 actions/download-artifact@v3）
+      # 下载上传的 artifact
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
